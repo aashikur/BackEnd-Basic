@@ -12,7 +12,7 @@ app.use(express.json())
 
 // mdaashikur
 // TkrRO9sWqmOVkrqj
-
+// --------------------------------------------------------------------------
 const uri = "mongodb+srv://simpleDBuser:TkrRO9sWqmOVkrqj@cluster0.pyzmqm9.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
@@ -28,11 +28,23 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
+    const database = client.db("userDB");
+    const usersCollections = database.collection("users");
+
+    app.post('/users', async (req, res) => {
+      console.log('data in the server', req.body); 
+      const newUser = req.body;
+          const result = await usersCollections.insertOne(newUser);
+          res.send(result);
+
+    })
+
+
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
-    // Ensures that the client will close when you finish/error
   }
 }
 run().catch(console.dir);
@@ -40,11 +52,11 @@ run().catch(console.dir);
 
 // --------------------------------------------------------------------------
 app.get('/', (req, res) => {
-    res.send('Server Running...')
+  res.send('Server Running...')
 })
 
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`)
+  console.log(`Example app listening at http://localhost:${port}`)
 })
 
