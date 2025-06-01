@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router';
 
 const Users = ({ userPromise }) => {
     const [users, setUsers] = useState([])
@@ -12,16 +13,15 @@ const Users = ({ userPromise }) => {
         fetch(`http://localhost:3000/users/${_id}`, {
             method: 'DELETE'
         })
-        .then(res => res.json())
-        .then(data => 
-         {
-            if(data.deletedCount > 0){
-                const remaining = users.filter(user => user._id !== _id);
-                setUsers(remaining);
+            .then(res => res.json())
+            .then(data => {
+                if (data.deletedCount > 0) {
+                    const remaining = users.filter(user => user._id !== _id);
+                    setUsers(remaining);
+                }
+                console.log(data);
             }
-            console.log(data);
-         }
-         )
+            )
     }
 
     const handleAddUser = e => {
@@ -53,17 +53,24 @@ const Users = ({ userPromise }) => {
             })
     }
     return (
-        <div> 
+        <div>
             <h2>Users Total : {users.length}</h2>
             <form onSubmit={handleAddUser}>
-                <input type="text" name='name' /> <br />
-                <input type="text" name='email' /> <br />
-                <input type="submit" value={'Add User'} /> <br />
-            </form> 
+                <input className='border px-2 rounded border-gray-300 m-1' type="text" name='name' /> <br />
+                <input className='border px-2 rounded border-gray-300 m-1' type="text" name='email' /> <br />
+                <input className='border px-5 m-1' type="submit" value={'Add User'} /> <br />
+            </form>
 
 
             {
-                users.map((user,i) => <p key={user._id}>{i+1}. { user.name}  <button onClick={()=>handleDelete(user._id)}>X</button> </p>)
+                users.map((user, i) => 
+                <p className='border flex items-center gap-1' key={user._id}>
+                    <span className='flex-1 text-left p-1'>
+                   {i + 1} .  {user.name} </span> 
+                   <Link to={`/userUpdate/${user._id}`} >Edit</Link>
+                   <Link to={`/users/${user._id}`} >view</Link>
+                   <button onClick={() => handleDelete(user._id)}>X</button>
+                </p>)
             }
         </div>
     );

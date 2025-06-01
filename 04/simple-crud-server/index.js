@@ -64,6 +64,17 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     })
+    
+    // __ Scarching Something...+++++++++++
+    app.get('/users/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = {_id: new ObjectId(id) }
+
+        const result = await usersCollection.findOne(query);
+        res.send(result);
+
+     
+    })
 
     // Insert the defined document into the "movies" collection
     app.post('/users', async (req, res) => {
@@ -81,6 +92,28 @@ async function run() {
          console.log('to be id', id)
          res.send(result);
 
+    })
+
+    // ||||||||||||||||||||||||||||||||||| Put / Patch
+    app.put('/users/:id', async(req, res) => {
+      const id = req.params.id;
+      const user = req.body;
+      const filter = {_id : new ObjectId(id)};
+      console.log(user);
+
+    /* Set the upsert option to insert a document if no documents match
+    the filter */
+    const options = { upsert: true };
+
+      const updateDoc =  {
+        $set: {
+          name: user.name,
+          email: user.email,
+          address: 'unknown for now'
+        }
+      }
+          const result = await usersCollection.updateOne(filter, updateDoc, options);
+          res.send(result);
     })
 
 
