@@ -1,5 +1,5 @@
 const express = require('express')
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const cors = require('cors');
 const app = express()
@@ -24,39 +24,83 @@ const client = new MongoClient(uri, {
   }
 });
 
+// async function run() {
+//   try {
+//     // Connect the client to the server	(optional starting in v4.7)
+//     await client.connect();
+//     const database = client.db("userDB");
+//     const usersCollections = database.collection("users");
+
+//     app.post('/users', async (req, res) => {
+//       console.log('data in the server', req.body); 
+//       const newUser = req.body;
+//           const result = await usersCollections.insertOne(newUser);
+//           res.send(result);
+
+//     })
+
+
+
+//     // Send a ping to confirm a successful connection
+//     await client.db("admin").command({ ping: 1 });
+//     console.log("Pinged your deployment. You successfully connected to MongoDB!");
+//   } finally {
+//   }
+// }
+// run().catch(console.dir);
+
+
+// --------------------------------------------------------------------------
+
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
+    // Connect to the "sample_mflix" database and access its "movies" collection
     await client.connect();
-    const database = client.db("userDB");
-    const usersCollections = database.collection("users");
+    const usersCollection = client.db("userDB").collection("users");
 
+    // This cursor For Sent data to Client Side (Display in UI )
+    app.get('/users', async (req, res) => {
+      const cursor = usersCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    })
+
+    // Insert the defined document into the "movies" collection
     app.post('/users', async (req, res) => {
-      console.log('data in the server', req.body); 
+      console.log('data in the server', req.body);
       const newUser = req.body;
-          const result = await usersCollections.insertOne(newUser);
-          res.send(result);
+      const result = await usersCollection.insertOne(newUser);
+      res.send(result);
+    }) 
+
+    // Delete Added here +++++++++++++++++++
+    app.delete('/users/:id', async (req, res) => {
+      const id = req.params.id;    
+      const query = {_id: new ObjectId(id)} 
+      const result = await usersCollection.deleteOne(query); 
+         console.log('to be id', id)
+         res.send(result);
 
     })
 
 
-
-    // Send a ping to confirm a successful connection
+    // Print the ID of the inserted document
     await client.db("admin").command({ ping: 1 });
-    console.log("Pinged your deployment. You successfully connected to MongoDB!");
-  } finally {
+  } catch(error){
+    console.error(error);
   }
 }
-run().catch(console.dir);
+  // Run the function and handle any errors
+  run().catch(console.dir);
+
+  //************************************************************ */
+  app.get('/', (req, res) => {
+    res.send('Server Running...');
+  })
 
 
-// --------------------------------------------------------------------------
-app.get('/', (req, res) => {
-  res.send('Server Running...')
-})
 
-
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-})
+  app.listen(port, () => {
+    console.log(`Example app listening at http://localhost:${port}`)
+  })
 
