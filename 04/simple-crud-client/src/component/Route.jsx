@@ -1,5 +1,6 @@
 import {
   createBrowserRouter,
+  Link,
   RouterProvider,
 } from "react-router";
 import App from "../App";
@@ -11,6 +12,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <MainLayout />,
+    errorElement: <h1>Not Found <Link to="/">Home</Link> </h1>,
     children: [
       {
         index: true,
