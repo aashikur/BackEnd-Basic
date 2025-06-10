@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { use } from 'react';
 import { Link } from 'react-router';
+import { AuthContext } from '../Context/AuthContext';
 
 const SignIn = () => {
+
+    const {userInfo} = use(AuthContext);
+    console.log(userInfo);
+
+
     return (
         <div className="bg-base-200 min-h-[70vh] flex items-center justify-center py-10">
             <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full">

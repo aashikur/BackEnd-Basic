@@ -32,6 +32,7 @@ async function run() {
 
 
     const coffeesCollection = client.db("coffeeDB").collection("coffees");
+    const coffeesUserCollection = client.db("coffeeDB").collection("users");
 
     app.get('/coffees', async (req, res) => {
       const cursor = coffeesCollection.find();
@@ -68,17 +69,7 @@ async function run() {
 
     })
 
-    // app.put('/coffees/:id', async (req, res) => {
-    //   const id = req.params.id;
-    //   const filter = {_id: new ObjectId(id)};
-    //   const options = {upsert: true};
-    //   const updateCoffee = req.body;
-    //   const updateDoc = {
-    //     $set: updateCoffee
-    //   };
-    //   const result = await coffeesCollection.updateOne(filter, updateDoc, options);
-    //   res.send(result);
-    // })
+
 
     app.delete('/coffees/:id', async(req, res)=> {
       const id = req.params.id;
@@ -87,6 +78,22 @@ async function run() {
       res.send(result);
     })
 
+
+    // ==========================================
+    // USer Collection
+    app.post('/users', async (req, res) => {
+      const userProfile = req.body;
+      console.log(userProfile);
+      const result = await coffeesUserCollection.insertOne(userProfile);
+      res.send(result);
+    })
+
+    app.get('/users', async (req, res) => {
+      const cursor = coffeesUserCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+
+    })
 
 
 
