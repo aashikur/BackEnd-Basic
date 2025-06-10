@@ -9,6 +9,10 @@ import {
 import MainLayout from './layout/MainLayout.jsx';
 import Home from './components/Home.jsx';
 import AddCoffee from './components/AddCoffee.jsx';
+import UpdateCoffee from './components/UpdateCoffee.jsx';
+import ViewCoffee from './components/ViewCoffee.jsx';
+import SignIn from './components/SignIn.jsx';
+import SignUp from './components/SignUp.jsx';
 
 const router = createBrowserRouter([
   {
@@ -17,15 +21,30 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        Component: Home
+        Component: Home,
+        loader: () => fetch('http://localhost:3000/coffees'),
       },
       {
         path: "/addcoffee",
         Component: AddCoffee,
       },
       {
-        path: "/updatecoffee",
-        Component: AddCoffee
+        path: "signin",
+        Component: SignIn,
+      },
+      {
+        path: "/signup",
+        Component: SignUp,
+      },
+      {
+        path: "viewcoffee/:id",
+        Component: ViewCoffee,
+        loader: ({ params}) => fetch(`http://localhost:3000/coffees/${params.id}`)
+      },
+      {
+        path: "/updatecoffee/:id",
+        Component: UpdateCoffee,
+        loader: ({ params}) => fetch(`http://localhost:3000/coffees/${params.id}`)
       }
     ]
   },

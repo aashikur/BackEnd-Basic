@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const { MongoClient, ServerApiVersion } = require('mongodb');
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 require('dotenv').config()
 
 const app = express();
@@ -28,6 +28,69 @@ async function run() {
   try {
     // Connect the client to the server	(optional starting in v4.7)
     await client.connect();
+
+
+
+    const coffeesCollection = client.db("coffeeDB").collection("coffees");
+
+    app.get('/coffees', async (req, res) => {
+      const cursor = coffeesCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+
+    })
+
+    app.get('/coffees/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = {_id : new ObjectId(id)};
+      const result = await coffeesCollection.findOne(query);
+      res.send(result)
+    })
+
+    app.post('/coffees', async (req, res) => {
+        const newCoffee = req.body;
+        const result = await coffeesCollection.insertOne(newCoffee);
+        res.send(result); // res.send(result);
+        console.log(newCoffee);
+    })
+
+    app.put('/coffees/:id', async (req, res) => {
+      const id = req.params.id;
+      const filter = {_id: new ObjectId(id)};
+      const options = {upsert: true};
+      const updateCoffee = req.body; // This is ShortCut for get all Key:Value pairs in req.body
+        const updateDoc = {
+      $set: updateCoffee
+    };
+    const result = await coffeesCollection.updateOne(filter, updateDoc, options);
+    res.send(result);
+
+
+    })
+
+    // app.put('/coffees/:id', async (req, res) => {
+    //   const id = req.params.id;
+    //   const filter = {_id: new ObjectId(id)};
+    //   const options = {upsert: true};
+    //   const updateCoffee = req.body;
+    //   const updateDoc = {
+    //     $set: updateCoffee
+    //   };
+    //   const result = await coffeesCollection.updateOne(filter, updateDoc, options);
+    //   res.send(result);
+    // })
+
+    app.delete('/coffees/:id', async(req, res)=> {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id)}
+      const result = await coffeesCollection.deleteOne(query);
+      res.send(result);
+    })
+
+
+
+
+
     // Send a ping to confirm a successful connection
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
