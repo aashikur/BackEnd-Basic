@@ -14,6 +14,7 @@ import ViewCoffee from './components/ViewCoffee.jsx';
 import SignIn from './components/SignIn.jsx';
 import SignUp from './components/SignUp.jsx';
 import AuthProvider from './Context/AuthProvider.jsx';
+import UsersTable from './components/UsersTable.jsx';
 
 const router = createBrowserRouter([
   {
@@ -36,6 +37,10 @@ const router = createBrowserRouter([
       {
         path: "/signup",
         Component: SignUp,
+      },{
+        path: "/users",
+        Component: UsersTable,
+        loader: () => fetch('http://localhost:3000/users'),
       },
       {
         path: "viewcoffee/:id",

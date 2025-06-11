@@ -21,14 +21,15 @@ const SignUp = () => {
         CreateUser(userData.email, password)
         .then((userCredential) => {
                 // Signed up 
-                console.log(userCredential.user);
+                console.log(userCredential.user.metadata);
+                const newUserProfile = {...userProfile, lastSignInTime: userCredential.user.metadata.lastSignInTime, creationTime: userCredential.user.metadata.creationTime }
                 // send user data to our server mongoDB
                 fetch('http://localhost:3000/users', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
                     },
-                    body: JSON.stringify(userProfile),
+                    body: JSON.stringify(newUserProfile),
                 }) 
                 .then(res => res.json())
                 .then(data => {

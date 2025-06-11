@@ -36,6 +36,18 @@ const Header = () => {
                                 Add Coffee
                             </NavLink>
                         </li>
+                        <li>
+                            <NavLink
+                                to="/users"
+                                className={({ isActive }) =>
+                                    isActive
+                                        ? "text-amber-600 underline"
+                                        : "text-gray-700 hover:text-amber-600"
+                                }
+                            >
+                                Users
+                            </NavLink>
+                        </li>
                         {/* <li>
                             <NavLink
                                 to="/signup"

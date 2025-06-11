@@ -3,9 +3,43 @@ import { Link } from 'react-router';
 import { AuthContext } from '../Context/AuthContext';
 
 const SignIn = () => {
+    const { SignInUser } = use(AuthContext);
 
-    const {userInfo} = use(AuthContext);
-    console.log(userInfo);
+const handleSignIn = (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    SignInUser(email, password)
+        .then(result => {
+            console.log(result.user);
+            console.log('Sign In Done!')
+
+            // Patch USER DATA only Email & Last SignIn Time
+            const SignInInfo = {
+                email: result.user.email,
+                lastSignInTime: result.user.metadata.lastSignInTime
+                
+            }
+            fetch('http://localhost:3000/users', {
+                method: 'PATCH',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(SignInInfo)
+            })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+            })
+
+        })
+        .catch(error => {
+            console.log(error);
+        })
+
+}
 
 
     return (
@@ -13,13 +47,14 @@ const SignIn = () => {
             <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md w-full">
                 <h1 className="text-3xl font-bold text-gray-800 mb-2 text-center">Sign In</h1>
                 <p className="text-gray-500 mb-8 text-center">Welcome back! Please sign in to your account.</p>
-                <form>
+                <form onSubmit={handleSignIn}>
                     <div className="mb-6">
                         <label className="block text-gray-700 font-semibold mb-2">Email Address</label>
                         <input
                             type="email"
                             className="input input-bordered w-full"
                             placeholder="Type your email"
+                            name="email"
                             required
                         />
                     </div>
@@ -29,6 +64,7 @@ const SignIn = () => {
                             type="password"
                             className="input input-bordered w-full"
                             placeholder="Type your password"
+                            name="password"
                             required
                         />
                     </div>
