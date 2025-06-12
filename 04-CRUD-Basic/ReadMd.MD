@@ -1,6 +1,4 @@
-Of course! Here’s a **clear, concise summary** of your **Users component** and **Express server** code, organized for easy revision in the future:
 
----
 
 ## 📌 **Client Side (React Component)**
 

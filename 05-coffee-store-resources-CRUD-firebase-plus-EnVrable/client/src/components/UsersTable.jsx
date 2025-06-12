@@ -9,7 +9,7 @@ const UsersTable = () => {
 
 
         if(proceed){
-            fetch(`http://localhost:3000/users/${id}`,{
+            fetch(`https://server-gvym4v9vy-ashikur-rahamans-projects-c6a6d28d.vercel.app/users/${id}`,{
                 method: 'DELETE',
             }) 
             .then(res => res.json())
@@ -27,7 +27,7 @@ const UsersTable = () => {
 
 
         // if (proceed) {
-        //     fetch(`http://localhost:3000/users/${id}`, {
+        //     fetch(`https://server-gvym4v9vy-ashikur-rahamans-projects-c6a6d28d.vercel.app/users/${id}`, {
         //         method: 'DELETE'
         //     })
         //     .then(res => res.json())

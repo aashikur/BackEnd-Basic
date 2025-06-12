@@ -22,7 +22,7 @@ const handleSignIn = (e) => {
                 lastSignInTime: result.user.metadata.lastSignInTime
                 
             }
-            fetch('http://localhost:3000/users', {
+            fetch('https://server-gvym4v9vy-ashikur-rahamans-projects-c6a6d28d.vercel.app/users', {
                 method: 'PATCH',
                 headers: {
                     'content-type': 'application/json'

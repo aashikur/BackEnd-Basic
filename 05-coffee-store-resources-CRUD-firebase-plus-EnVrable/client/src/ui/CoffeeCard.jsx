@@ -21,7 +21,7 @@ const CoffeeCard = ({ coffee, setCoffees, coffees }) => {
 
 
                 // Server Delete Manage
-                fetch(`http://localhost:3000/coffees/${_id}`, {
+                fetch(`https://server-gvym4v9vy-ashikur-rahamans-projects-c6a6d28d.vercel.app/coffees/${_id}`, {
                     method: 'DELETE',
                 })
                     .then(res => res.json())

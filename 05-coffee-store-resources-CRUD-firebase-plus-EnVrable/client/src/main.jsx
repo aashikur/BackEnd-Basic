@@ -24,7 +24,7 @@ const router = createBrowserRouter([
       {
         index: true,
         Component: Home,
-        loader: () => fetch('http://localhost:3000/coffees'),
+        loader: () => fetch('https://server-gvym4v9vy-ashikur-rahamans-projects-c6a6d28d.vercel.app/coffees'),
       },
       {
         path: "/addcoffee",
@@ -40,17 +40,17 @@ const router = createBrowserRouter([
       },{
         path: "/users",
         Component: UsersTable,
-        loader: () => fetch('http://localhost:3000/users'),
+        loader: () => fetch('https://server-gvym4v9vy-ashikur-rahamans-projects-c6a6d28d.vercel.app/users'),
       },
       {
         path: "viewcoffee/:id",
         Component: ViewCoffee,
-        loader: ({ params }) => fetch(`http://localhost:3000/coffees/${params.id}`)
+        loader: ({ params }) => fetch(`https://server-gvym4v9vy-ashikur-rahamans-projects-c6a6d28d.vercel.app/coffees/${params.id}`)
       },
       {
         path: "/updatecoffee/:id",
         Component: UpdateCoffee,
-        loader: ({ params }) => fetch(`http://localhost:3000/coffees/${params.id}`)
+        loader: ({ params }) => fetch(`https://server-gvym4v9vy-ashikur-rahamans-projects-c6a6d28d.vercel.app/coffees/${params.id}`)
       }
     ]
   },

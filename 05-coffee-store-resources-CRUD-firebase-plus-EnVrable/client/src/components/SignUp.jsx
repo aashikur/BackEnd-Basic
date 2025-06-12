@@ -24,7 +24,7 @@ const SignUp = () => {
                 console.log(userCredential.user.metadata);
                 const newUserProfile = {...userProfile, lastSignInTime: userCredential.user.metadata.lastSignInTime, creationTime: userCredential.user.metadata.creationTime }
                 // send user data to our server mongoDB
-                fetch('http://localhost:3000/users', {
+                fetch('https://server-gvym4v9vy-ashikur-rahamans-projects-c6a6d28d.vercel.app/users', {
                     method: 'POST',
                     headers: {
                         'content-type': 'application/json'
