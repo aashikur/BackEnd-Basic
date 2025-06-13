@@ -1,7 +1,5 @@
 import './App.css'
 
-import React from 'react';
-import ToggleLightDark from './ui/ToggleLightDark';
 import Header from './component/Header';
 
 const App = () => {

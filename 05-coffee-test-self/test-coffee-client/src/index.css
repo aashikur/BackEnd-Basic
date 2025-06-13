@@ -3,3 +3,7 @@
    themes: light --default, dark --prefersdark;
  }
  @custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *));
+
+ .active {
+  border-bottom: 1px solid gray;
+ }

@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import { FiMenu } from "react-icons/fi";
 import { FaUserCircle } from "react-icons/fa";
 import ToggleLightDark from "../ui/ToggleLightDark";
 import { FcGoogle } from "react-icons/fc";
 const Header = () => {
+    
     const Logo = <img className=" w-8 sm:w-10 rounded-full overflow-hidden p-0" src="https://img.freepik.com/premium-vector/black-silhouette-logo-design-letter-c-with-white-background_743291-174.jpg" alt="" />
 
     const profile_icon = 'https://avatars.githubusercontent.com/u/46211523?v=4';
@@ -20,15 +21,15 @@ const Header = () => {
             {/* Desktop Header */}
             <div className="hidden lg:flex items-center justify-between max-w-7xl mx-auto px-4 py-2">
                 {/* 1. Logo */}
-                <div className="text-xl font-bold w-12">
+                <Link to={'/'} className="text-xl font-bold w-12">
                     {Logo}
-                </div>
+                </Link>
 
                 {/* 2. Navigation */}
                 <nav className="flex gap-6">
-                    <Link to="/" className="hover:text-primary">Home</Link>
-                    <Link to="/coffee" className="hover:text-primary">Coffee</Link>
-                    <Link to="/add-coffee" className="hover:text-primary">Add Coffee</Link>
+                    <NavLink  to="/" className="hover:text-primary">Home</NavLink>
+                    <NavLink to="/add-coffee" className="hover:text-primary">Add Coffee</NavLink>
+                    <NavLink to="/coffee" className="hover:text-primary">All Users</NavLink>
                 </nav>
 
                 {/* 3. Theme Toggle */}
