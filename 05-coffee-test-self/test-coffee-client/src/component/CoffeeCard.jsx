@@ -1,8 +1,15 @@
 import { Link } from 'react-router';
 
-const CoffeeCard = ({ coffee }) => {
+const CoffeeCard = ({ coffee, setAddedCoffee , AddedCoffee }) => { 
+
+    
     const handleDelete = (id) => {
         console.log('Delete id: ', id) 
+
+        const confirmDelete = window.confirm('Are you sure you want to delete this item?');
+        if (!confirmDelete) {
+            return;
+        }
         fetch(`http://localhost:3000/addcoffee/${id}`, {
             method: 'DELETE',
             headers: {
@@ -12,7 +19,12 @@ const CoffeeCard = ({ coffee }) => {
         })
         .then(res => res.json())
         .then(data => {
+
+
+            const remaining = AddedCoffee.filter(cof => cof._id !== id);
+            setAddedCoffee(remaining);
             console.log("After delete",data)
+            alert('Deleted Successfully')
         })
     }
 

@@ -1,6 +1,8 @@
-import React, { useEffect } from 'react';
+import React, { use, useEffect } from 'react';
+import { Navigate, useNavigate } from 'react-router';
 
 const AddCoffee = () => {
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -19,8 +21,14 @@ const AddCoffee = () => {
             body: JSON.stringify(Data_of_form)
         })
         .then(res => res.json())
-        .then(data => {
+        .then(data => { 
             console.log('After Posting from client: FormData :', data);
+            if(data.insertedId) {
+                alert('Coffee Added Successfully');
+                e.target.reset();
+
+                    navigate('/');
+            }
         })
     };
 

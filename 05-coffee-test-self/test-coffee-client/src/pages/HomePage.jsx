@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CoffeeCard from '../component/CoffeeCard';
 import { useLoaderData } from 'react-router';
 
 const HomePage = () => {
-    const AddedCoffee = useLoaderData();
+    const ServerAddedCoffee = useLoaderData();
+    const [AddedCoffee, setAddedCoffee] = useState(ServerAddedCoffee);
+
     console.log(AddedCoffee)
     return (
         <div>
@@ -11,7 +13,7 @@ const HomePage = () => {
                 HOME PAGE : {AddedCoffee.length}
            </div>
            <div className=' w-2xl sm:max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-4'>
-            {AddedCoffee.map(coffee => <CoffeeCard key={coffee._id} coffee={coffee}/>) }
+            {AddedCoffee.map(coffee => <CoffeeCard key={coffee._id} AddedCoffee={AddedCoffee} setAddedCoffee={setAddedCoffee} coffee={coffee}/>) }
            </div>
         </div>
     );
