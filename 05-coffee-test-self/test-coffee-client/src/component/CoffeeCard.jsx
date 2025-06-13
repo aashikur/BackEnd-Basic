@@ -42,7 +42,7 @@ const CoffeeCard = ({ coffee, setAddedCoffee , AddedCoffee }) => {
         <p className="text-sm text-base-content/70">Category: {coffee.category}</p>
         <div className="card-actions mt-4 flex flex-wrap justify-center gap-2">
           <Link to={`/coffee/${coffee._id}`} className="btn btn-sm btn-primary">View</Link>
-          <button className="btn btn-sm btn-warning">Edit</button>
+          <Link to={`/coffee-card-edit/${coffee._id}`} className="btn btn-sm btn-warning">Edit</Link>
           <button onClick={() => handleDelete(coffee._id)} className="btn btn-sm btn-error">Delete</button>
         </div>
       </div>
@@ -50,4 +50,4 @@ const CoffeeCard = ({ coffee, setAddedCoffee , AddedCoffee }) => {
   );
 };
 
-export default CoffeeCard;
+export default CoffeeCard; 

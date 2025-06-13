@@ -12,6 +12,7 @@ import PageError from './pages/PageError.jsx';
 import HomePage from './pages/HomePage.jsx';
 import AddCoffee from './pages/AddCoffee.jsx';
 import CoffeeCardDetails from './component/CoffeeCardDetails.jsx';
+import CoffeeCardEdit from './component/CoffeeCardEdit.jsx';
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,11 @@ const router = createBrowserRouter([
     {
       path:'/coffee/:id',
       Component: CoffeeCardDetails,
+      loader: ({params}) => fetch(`http://localhost:3000/addcoffee/${params.id}`)
+    },
+    {
+      path: 'coffee-card-edit/:id',
+      Component: CoffeeCardEdit,
       loader: ({params}) => fetch(`http://localhost:3000/addcoffee/${params.id}`)
     }
   
