@@ -13,6 +13,7 @@ import HomePage from './pages/HomePage.jsx';
 import AddCoffee from './pages/AddCoffee.jsx';
 import CoffeeCardDetails from './component/CoffeeCardDetails.jsx';
 import CoffeeCardEdit from './component/CoffeeCardEdit.jsx';
+import LoginPage from './pages/LoginPage.jsx';
 
 const router = createBrowserRouter([
   {
@@ -42,6 +43,10 @@ const router = createBrowserRouter([
   
   ]
   },
+  {
+    path: "login",
+    Component: LoginPage
+  }
 ]);
 
 

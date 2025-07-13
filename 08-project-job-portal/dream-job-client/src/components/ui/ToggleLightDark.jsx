@@ -4,7 +4,7 @@ const ToggleLightDark = () => {
 
     // ✅ Initialize theme from localStorage (on first render)
     const [theme, setTheme] = useState(() => {
-        return localStorage.getItem("theme") || "light";
+        return localStorage.getItem("theme") || "dark";
     });
 
 
@@ -47,6 +47,8 @@ const ToggleLightDark = () => {
 };
 
 export default ToggleLightDark;
+
+
 
 
 

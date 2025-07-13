@@ -4,8 +4,9 @@ import { FiMenu } from "react-icons/fi";
 import { FaUserCircle } from "react-icons/fa";
 import ToggleLightDark from "../ui/ToggleLightDark";
 import { FcGoogle } from "react-icons/fc";
+import UserInfo from "../AuthProvider/AuthContext";
 const Header = () => {
-    
+    const {SignIn_with_Google, LogOut, user} = UserInfo
     const Logo = <img className=" w-8 sm:w-10 rounded-full overflow-hidden p-0" src="https://img.freepik.com/premium-vector/black-silhouette-logo-design-letter-c-with-white-background_743291-174.jpg" alt="" />
 
     const profile_icon = 'https://avatars.githubusercontent.com/u/46211523?v=4';
@@ -13,7 +14,7 @@ const Header = () => {
     const [isMenuOpen, setMenuOpen] = useState(false);
 
     // Mock user (replace with actual auth)
-    const user = false;
+   
 
     return (
         <header className="bg-base-100 shadow-md py-1 sticky top-0 z-50">
@@ -39,8 +40,8 @@ const Header = () => {
                     {/* 4. Auth Section */}
                     {!user ? (
                         <div className="flex items-center gap-2">
-                            <span className="hidden lg:inline hover:text-blue-600 cursor-pointer">Login</span>
-                            <button className="btn btn-outline border-gray-400/80 btn-sm">
+                            <Link to="/login" className="hidden lg:inline hover:text-blue-600 cursor-pointer">Login</Link>
+                            <button onClick={SignIn_with_Google} className="btn btn-outline border-gray-400/80 btn-sm">
                                 <FcGoogle />Sign In
                             </button>
                         </div>

@@ -1,7 +1,8 @@
 import React from 'react';
-import { useLoaderData } from 'react-router';
+import { useLoaderData, useNavigate } from 'react-router';
 
 const CoffeeCardEdit = () => {
+    const Navigate = useNavigate();
     const coffee = useLoaderData();
     const { name, chef, supplier, taste, category, photo } = coffee;
     const handleEdit = (e) => {
@@ -21,6 +22,11 @@ const CoffeeCardEdit = () => {
         })
         .then(res => res.json())
         .then(data => {
+            if(data.modifiedCount > 0) {
+                alert('Updated Successfully');
+                e.target.reset();
+                Navigate('/')
+            } 
             console.log('After sending put data from client: ',data);
         })
     }
