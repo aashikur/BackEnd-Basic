@@ -8,7 +8,7 @@ const Navbar = () => {
         user, 
         Log_out
     } = useContext(AuthContext);
-    console.log("navbar check usr:", user)
+    // console.log("navbar check usr:", user)
 
     return (
         <div className="navbar bg-base-100 shadow-sm">
