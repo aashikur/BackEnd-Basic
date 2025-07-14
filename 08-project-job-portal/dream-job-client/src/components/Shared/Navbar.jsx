@@ -1,9 +1,12 @@
 import React, { useContext } from 'react';
 import ToggleLightDark from '../ui/ToggleLightDark';
-import { Link, NavLink } from 'react-router';
+import { Link, NavLink, useLocation } from 'react-router';
 import { AuthContext } from '../../context/AuthContext';
 
 const Navbar = () => {
+    const location = useLocation();
+  console.log('location', location);
+
     const { 
         user, 
         Log_out
@@ -13,7 +16,7 @@ const Navbar = () => {
     return (
         <div className="navbar bg-base-100 shadow-sm">
             <div className="flex-1">
-                <a className="btn btn-ghost text-xl">FindJOB</a>
+                <Link to='/' className="btn btn-ghost text-xl">FindJOB</Link>
             </div>
             <div className='flex-1'>
                 <ul className="menu menu-horizontal p-0">

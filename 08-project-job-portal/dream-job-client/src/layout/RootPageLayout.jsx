@@ -9,6 +9,7 @@ const RootPageLayout = () => {
             <Navbar/>
             <Outlet/>
             <Footer/>
+            
         </div>
     );
 };

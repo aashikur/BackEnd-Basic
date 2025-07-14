@@ -40,7 +40,6 @@ async function run() {
     app.get('/jobs', async (req, res) => {
         const result = await DreamDB.find().toArray();
         res.send(result);
-
     })
 
     app.get('/jobs-details/:id', async (req, res) => {
@@ -48,7 +47,7 @@ async function run() {
         const query = { _id: new ObjectId(id)}
         const result  = await DreamDB.findOne(query);
         res.send(result);
-  
+
     })
 
     console.log("Pinged your deployment. You successfully connected to MongoDB!");

@@ -1,18 +1,23 @@
 import React, { useContext } from 'react';
 import { FcGoogle } from 'react-icons/fc';
 import { AuthContext } from '../../context/AuthContext';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 
-const SIgnWithGoogle = () => {
+const SIgnWithGoogle = ({from}) => {
+    
 
     const { Sign_in_with_google } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     // if(loading) return <p>Loading... </p>
 
+    console.log('google ', from)
     const handleGoogleLogin = () => {
         Sign_in_with_google()
             .then(rest => {
                 console.log(rest);
+                navigate(from || '/')
+
             })
             .catch(err => {
                 console.log(err);

@@ -98,6 +98,7 @@ const ApplyJob = () => {
         </form>
       </div>
     </div>
+    
    </div>
   );
 };

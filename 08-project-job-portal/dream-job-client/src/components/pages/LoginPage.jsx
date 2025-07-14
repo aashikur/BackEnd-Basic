@@ -1,13 +1,21 @@
 import React, { useContext, useState } from 'react';
 import { AuthContext } from '../../context/AuthContext';
-import { Link } from 'react-router';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { FcGoogle } from 'react-icons/fc';
 import SIgnWithGoogle from '../ui/SIgnWithGoogle';
 
 const LoginPage = () => {
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+
+    const navigate = useNavigate();
+    const location = useLocation();
+
+    const from = location.state || '/';
+    console.log('login page ', from);
+
+    const [email, setEmail] = useState('123456@gmail.com');
+    const [password, setPassword] = useState('123456');
     const [error, setError] = useState('');
+
 
     const { Login_with_email, setLoading, Sign_in_with_google } = useContext(AuthContext);
 
@@ -24,7 +32,8 @@ const LoginPage = () => {
         Login_with_email(email, password)
             .then(() => {
                 setLoading(false);
-                alert('Loging Success;')
+                alert('Logged in  Success;')
+                navigate(from, { replace: true})
             })
         setError('');
     };
@@ -50,6 +59,7 @@ const LoginPage = () => {
                             placeholder="you@example.com"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
+                            // defaultValue={'you@example.com'}
                         />
                     </div>
 
@@ -70,19 +80,19 @@ const LoginPage = () => {
                     <button
                         type="submit"
 
-                        className="w-full bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200"
+                        className="w-full btn bg-blue-600 text-white py-2 rounded-md hover:bg-blue-700 transition duration-200"
                     >
                         Sign In
                     </button>
                 </form>
 
                 <p className="mt-4 text-center text-sm text-gray-600">
-                    Don't have an account? <Link to="/register" className="text-blue-600 hover:underline cursor-pointer">Sign up</Link>
+                    Don't have an account? <Link to="/register" className="text-blue-600 hover:underline cursor-pointer ">Sign up</Link>
                 </p>
                 <div className="divider">
                     or
                 </div>
-                            <SIgnWithGoogle/>
+                            <SIgnWithGoogle form={from}/>
 
             </div>
         </div>
