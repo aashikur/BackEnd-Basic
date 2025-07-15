@@ -37,6 +37,7 @@ async function run() {
 
     const DreamDB = client.db("DreamJobDB").collection("jobs");
 
+    
     app.get('/jobs', async (req, res) => {
         const result = await DreamDB.find().toArray();
         res.send(result);
@@ -47,8 +48,20 @@ async function run() {
         const query = { _id: new ObjectId(id)}
         const result  = await DreamDB.findOne(query);
         res.send(result);
-
     })
+
+    // all applications List & my applications
+    const applicaationsCollection = client.db("DreamJobDB").collection("applications");
+    app.post('/applications', async (req, res) => {
+        const application = req.body;
+        const result = await applicaationsCollection.insertOne(application);
+        res.send(result);
+    })
+    app.get('/applications', async (req, res) => {
+        const result = await applicaationsCollection.find().toArray();
+        res.send(result);
+    })
+
 
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {

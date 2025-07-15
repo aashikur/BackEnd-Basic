@@ -1,13 +1,22 @@
 import React, { useState } from 'react';
 import JobDetails from './JobDetails';
+import { Link } from 'react-router';
+import { useContext } from 'react';
+import { AuthContext } from '../../context/AuthContext';
+import { useParams } from 'react-router';
+import { useEffect } from 'react';
 
 const ApplyJob = () => {
+  const JobID = useParams().id;
+  // console.log(JobID)
   const [formData, setFormData] = useState({
     fullName: '',
     email: '',
     resumeLink: '',
     coverLetter: '',
   });
+  const {user} = useContext(AuthContext);
+  // console.log(user)
 
   const [submitting, setSubmitting] = useState(false);
 
@@ -24,18 +33,38 @@ const ApplyJob = () => {
 
     // Simulate network delay
     setTimeout(() => {
-      console.log('Form submitted:', formData);
-      alert('Application Submitted Successfully ✅');
+      const UpdateApplicationData = {...formData, JobID, email: user.email};
+      console.log('Form submitted:', UpdateApplicationData );
+      // alert('Application Submitted Successfully ✅');
+
+
+      fetch(`http://localhost:3000/applications`,{
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(UpdateApplicationData),
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Success:', data);
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+        });
+
       setSubmitting(false);
+
     }, 1500);
   };
+
 
   return (
    <div> 
      <div className="min-h-screen flex justify-center items-center bg-gray-100 px-4 py-10">
         
       <div className="bg-white p-8 rounded-lg shadow-md max-w-2xl w-full">
-        <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Apply for Job</h1>
+        <h1 className="text-2xl font-bold text-gray-800 mb-6 text-center">Apply for Job <span className='text-blue-500'><Link to={`/job-details/${JobID}`}>Job Details</Link></span></h1>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
@@ -52,14 +81,14 @@ const ApplyJob = () => {
           </div>
 
           <div>
-            <label className="block text-sm font-medium text-gray-700">Email</label>
+            <label className="block text-sm font-medium text-gray-700 ">Email</label>
             <input
               type="email"
               name="email"
               required
-              value={formData.email}
+              value={user.email}
               onChange={handleChange}
-              className="w-full px-4 py-2 border rounded-md mt-1 focus:ring-2 focus:ring-blue-500"
+              className="w-full px-4 py-2 border rounded-md mt-1 focus:ring-2 focus:ring-blue-500 opacity-60 cursor-not-allowed"
               placeholder="john@example.com"
             />
           </div>

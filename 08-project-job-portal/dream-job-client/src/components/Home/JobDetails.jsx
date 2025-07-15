@@ -5,6 +5,7 @@ const JobDetails = () => {
   const job = useLoaderData();
   console.log(job);
 
+  console.log(job)
   
   const {
     _id,

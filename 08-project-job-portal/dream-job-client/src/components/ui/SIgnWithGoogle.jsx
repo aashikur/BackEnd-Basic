@@ -11,7 +11,7 @@ const SIgnWithGoogle = ({from}) => {
 
     // if(loading) return <p>Loading... </p>
 
-    console.log('google ', from)
+    // console.log('google ', from)
     const handleGoogleLogin = () => {
         Sign_in_with_google()
             .then(rest => {

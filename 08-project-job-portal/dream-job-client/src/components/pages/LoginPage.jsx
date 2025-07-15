@@ -10,7 +10,7 @@ const LoginPage = () => {
     const location = useLocation();
 
     const from = location.state || '/';
-    console.log('login page ', from);
+    // console.log('login page ', from);
 
     const [email, setEmail] = useState('123456@gmail.com');
     const [password, setPassword] = useState('123456');

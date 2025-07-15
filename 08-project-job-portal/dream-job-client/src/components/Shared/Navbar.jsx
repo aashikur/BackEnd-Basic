@@ -5,7 +5,7 @@ import { AuthContext } from '../../context/AuthContext';
 
 const Navbar = () => {
     const location = useLocation();
-  console.log('location', location);
+//   console.log('location', location);
 
     const { 
         user, 
