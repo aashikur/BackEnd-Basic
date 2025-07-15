@@ -1,5 +1,6 @@
 import React, { Suspense } from 'react';
 import JobCard from './JobCard';
+import ScrollToTop from '../ui/ScrollToTop';
 // import JobCard from './JobCard';
 
 // Lazy load JobCard component
@@ -29,7 +30,7 @@ const JobSection = () => {
                     ))}
             </div>
                 {/* </Suspense> */}
-                
+                <ScrollToTop/>
         </div>
     );
 };

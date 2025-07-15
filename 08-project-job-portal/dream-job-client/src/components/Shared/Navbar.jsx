@@ -11,17 +11,18 @@ const Navbar = () => {
         user, 
         Log_out
     } = useContext(AuthContext);
-    // console.log("navbar check usr:", user)
+    console.log("navbar check usr:", user)
 
     return (
-        <div className="navbar bg-base-100 shadow-sm">
+        <div className="navbar bg-base-100 shadow-sm sticky top-0 z-50">
             <div className="flex-1">
                 <Link to='/' className="btn btn-ghost text-xl">FindJOB</Link>
             </div>
             <div className='flex-1'>
                 <ul className="menu menu-horizontal p-0">
                     <li><NavLink to='/'>Home</NavLink></li>
-                    <li><a>About</a></li>
+                    <li><NavLink to={'/applications'}>Applications List </NavLink></li> 
+                   {user &&  <li><NavLink to={`/my-applications?email=${user.email}`}>My Applications</NavLink></li> }
 
                 </ul>
             </div>

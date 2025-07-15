@@ -62,6 +62,31 @@ async function run() {
         res.send(result);
     })
 
+    // My Applications ----------------------------------------------
+app.get('/my-applications', async (req, res) => {
+    try {
+        const email = req.query.email;
+        console.log("email:", email);
+
+        // Use .toArray() to get the results as an array
+        const result = await applicaationsCollection.find({ email: email }).toArray();
+
+        // Bad ways to aggregate data
+        for (const app of result) {
+          JobID =app.JobID;
+          const jobQuery = {_id: new ObjectId(JobID)};
+          const job = await DreamDB.findOne(jobQuery);
+          app.jobDetails = job;
+        }
+
+        res.send(result);
+    } catch (error) {
+        console.error(error);
+        res.status(500).send({ error: 'An error occurred while fetching applications.' });
+    }
+});
+
+
 
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
