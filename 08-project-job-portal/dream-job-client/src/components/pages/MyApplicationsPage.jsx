@@ -2,7 +2,7 @@ import React from 'react';
 import { useLoaderData } from 'react-router';
 
 const MyApplicationsPage = () => {
-    const myApplications = useLoaderData();
+    const myApplications = useLoaderData() || [];
 
     return (
         <div className="max-w-4xl mx-auto p-6">

@@ -39,7 +39,7 @@ const router = createBrowserRouter([
       {
         path: "/view-applicant/:id",
         element: <ViewApplicant />,
-        // loader: ({params}) => fetch(`http://localhost:3000/applications/${params.id}`) 
+        loader: ({ params }) => fetch(`http://localhost:3000/applications?jobId=${params.id}`)
       },
       {
         path: "/my-applications",

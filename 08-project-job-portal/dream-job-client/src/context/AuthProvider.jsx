@@ -13,6 +13,7 @@ import {
 } from "firebase/auth";
 import auth from '../firebase/firebase.config';
 import { useEffect } from 'react';
+import axios from 'axios';
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
@@ -60,6 +61,18 @@ const AuthProvider = ({ children }) => {
             setUser(null);
         }
         setLoading(false);
+
+        if(Current.User?.email) {
+            axios.post('http://localhost:3000/jws', 
+                {email: Current.User.email}
+            ) 
+            .then(res => {
+                console.log(res.data);
+            })
+            .catch(err => {
+                console.log(err);
+            })
+        }
     });
 
 
