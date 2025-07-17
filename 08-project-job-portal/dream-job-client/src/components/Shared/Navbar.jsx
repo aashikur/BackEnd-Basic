@@ -18,11 +18,13 @@ const Navbar = () => {
             <div className="flex-1">
                 <Link to='/' className="btn btn-ghost text-xl">FindJOB</Link>
             </div>
-            <div className='flex-1'>
+            <div className='flex-2'>
                 <ul className="menu menu-horizontal p-0">
                     <li><NavLink to='/'>Home</NavLink></li>
                     <li><NavLink to={'/applications'}>Applications List </NavLink></li> 
                    {user &&  <li><NavLink to={`/my-applications?email=${user.email}`}>My Applications</NavLink></li> }
+                   {user &&  <li><NavLink to={`/add-jobs`}>Add Jobs</NavLink></li> }
+                   {user &&  <li><NavLink to={`/my-posted-jobs?email=${user.email}`}>My Posted Jobs</NavLink></li> }
 
                 </ul>
             </div>
@@ -43,7 +45,7 @@ const Navbar = () => {
                             <div className="w-10 rounded-full">
                                 <img
                                     alt="Tailwind CSS Navbar component"
-                                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                    src={user.photoURL || 'img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp'} />
                             </div>
                         </div>
                         <ul

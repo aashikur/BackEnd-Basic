@@ -37,34 +37,50 @@ async function run() {
 
     const DreamDB = client.db("DreamJobDB").collection("jobs");
 
-    
+
     app.get('/jobs', async (req, res) => {
-        const result = await DreamDB.find().toArray();
-        res.send(result);
+
+      // JOB + Search JOB by email query.
+      const email = req.query.email;
+      let query = {};
+      if (email) {
+        query.hr_email = email;
+      }
+      console.log('testing query', query)
+      const result = await DreamDB.find(query).toArray();
+      res.send(result);
     })
 
+
     app.get('/jobs-details/:id', async (req, res) => {
-        const id = req.params.id;
-        const query = { _id: new ObjectId(id)}
-        const result  = await DreamDB.findOne(query);
-        res.send(result);
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await DreamDB.findOne(query);
+      res.send(result);
+    })
+
+    // Post a job ---------------------------
+    app.post('/jobs', async (req, res) => {
+      const job = req.body;
+      const result = await DreamDB.insertOne(job);
+      res.send(result);
     })
 
     // all applications List & my applications
     const applicaationsCollection = client.db("DreamJobDB").collection("applications");
     app.post('/applications', async (req, res) => {
-        const application = req.body;
-        const result = await applicaationsCollection.insertOne(application);
-        res.send(result);
+      const application = req.body;
+      const result = await applicaationsCollection.insertOne(application);
+      res.send(result);
     })
     app.get('/applications', async (req, res) => {
-        const result = await applicaationsCollection.find().toArray();
-        res.send(result);
+      const result = await applicaationsCollection.find().toArray();
+      res.send(result);
     })
 
     // My Applications ----------------------------------------------
-app.get('/my-applications', async (req, res) => {
-    try {
+    app.get('/my-applications', async (req, res) => {
+      try {
         const email = req.query.email;
         console.log("email:", email);
 
@@ -73,19 +89,26 @@ app.get('/my-applications', async (req, res) => {
 
         // Bad ways to aggregate data
         for (const app of result) {
-          JobID =app.JobID;
-          const jobQuery = {_id: new ObjectId(JobID)};
+          JobID = app.JobID;
+          const jobQuery = { _id: new ObjectId(JobID) };
           const job = await DreamDB.findOne(jobQuery);
           app.jobDetails = job;
         }
 
         res.send(result);
-    } catch (error) {
+      } catch (error) {
         console.error(error);
         res.status(500).send({ error: 'An error occurred while fetching applications.' });
-    }
-});
+      }
+    });
 
+ // ------- my - applicant 
+     app.get('/applications/:id', async (req, res) => {
+      const id = req.params.id;
+      const query = { _id: new ObjectId(id) }
+      const result = await applicaationsCollection.find(query).toArray();
+      res.send(result);
+    })
 
 
     console.log("Pinged your deployment. You successfully connected to MongoDB!");

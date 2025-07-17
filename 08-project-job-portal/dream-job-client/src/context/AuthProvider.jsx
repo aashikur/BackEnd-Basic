@@ -12,20 +12,13 @@ import {
 
 } from "firebase/auth";
 import auth from '../firebase/firebase.config';
+import { useEffect } from 'react';
 
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
 
-    // Check if User is Logged in -> Even after ReFresh 
-    onAuthStateChanged(auth, (Current) => {
-        if (Current) {
-            setUser(Current)
-        } else {
-            setUser(null);
-        }
-    });
 
     // Create New user 
     const Register_with_email = (email, password) => {
@@ -54,6 +47,29 @@ const AuthProvider = ({ children }) => {
             console.log('Fail Logout : ', error);
         });
     }
+
+
+    // Problem 1. XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+    useEffect(()=> {
+        
+    // Check if User is Logged in -> Even after ReFresh 
+   const unScribe =  onAuthStateChanged(auth, (Current) => {
+        if (Current) {
+            setUser(Current)
+        } else {
+            setUser(null);
+        }
+        setLoading(false);
+    });
+
+
+    return () => unscribe();
+
+    },[])
+
+
+
+
 
     const authData = {
         user,
