@@ -49,6 +49,12 @@ const ToggleLightDark = () => {
 export default ToggleLightDark; 
 
 
+// ## /* Method 2 : Theme Color : Custom Class */
+// ## ======================================================================= */
+// @plugin "daisyui/theme" {
+//   name: "light";
+//   --color-custom-red: green;
+// }
 
 
 // ## General Install Tailwind Css and DaisyUI
@@ -95,9 +101,3 @@ export default ToggleLightDark;
 
 
 
-// ## /* Method 2 : Theme Color : Custom Class */
-// ## ======================================================================= */
-// @plugin "daisyui/theme" {
-//   name: "light";
-//   --color-custom-red: green;
-// }
